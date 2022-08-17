@@ -28,16 +28,17 @@ async function addFood(req, res) {
   res.status(201).json(food);
 }
 async function updateFood(req, res) {
-  let foodId = parseInt(req.params.id);
-  let updateFood = req.body;
-  let foundFood = await Food.read(foodId);
-  if (foundFood) {
-    let updatedFood = await Food.update(updateFood);
-    res.status(201).json(updatedFood);
-  } else {
-    res.status(404).json({ message: 'Food not found' });
-  }
+  const id = req.params.id;
+  const obj = req.body;
+  let updatedRecord = await Food.update(id, obj)
+  res.status(201).json(updatedRecord);
 }
+// async function handleUpdate(req, res) {
+//   const id = req.params.id;
+//   const obj = req.body;
+//   let updatedRecord = await req.model.update(id, obj)
+//   res.status(201).json(updatedRecord);
+// }
 async function deleteFood(req, res) {
   let foodId = parseInt(req.params.id);
   let foundFood = await Food.read(foodId);
